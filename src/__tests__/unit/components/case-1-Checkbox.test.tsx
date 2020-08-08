@@ -20,18 +20,19 @@ describe('The <Checkbox /> component', () => {
     onChange: jest.fn(),
     checked: false,
   }
+
+  const setupCheckbox = () => render(<Checkbox {...defaultCheckboxProps} />)
+
   it('Should render the label and checkbox the user will see', () => {
-    const container = document.createElement('div')
-    ReactDOM.render(<Checkbox {...defaultCheckboxProps} />, container)
-
-    const label = container.querySelector('label')
-    const inputCheckbox = container.querySelector('input[type="checkbox"]')
-
-    expect(label).not.toBeNull()
-    expect(inputCheckbox).not.toBeNull()
+    const { asFragment } = setupCheckbox()
+    expect(asFragment()).toMatchSnapshot()
   })
 
-  it('❌ Should make the checkbox accessible by setting the id and htmlFor attributes on label and checkbox', () => {})
+  it('Should make the checkbox accessible by setting the id and htmlFor attributes on label and checkbox', () => {
+    const { getByLabelText, debug } = setupCheckbox()
+    // debug(getByLabelText(defaultCheckboxProps.label))
+    expect(getByLabelText(defaultCheckboxProps.label)).toBeInTheDocument()
+  })
 
   it('❌ Should call the onChange handler when it is provided', () => {})
 
