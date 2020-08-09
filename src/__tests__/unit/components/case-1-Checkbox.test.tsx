@@ -52,5 +52,8 @@ describe('The <Checkbox /> component', () => {
     expect(getByLabelText(defaultCheckboxProps.label)).toBeChecked()
   })
 
-  it('❌ should not fail any accessibility tests', async () => {})
+  it('Should not fail any accessibility tests', async () => {
+    const { container } = setupCheckbox()
+    expect(await axe(container)).toHaveNoViolations()
+  })
 })
